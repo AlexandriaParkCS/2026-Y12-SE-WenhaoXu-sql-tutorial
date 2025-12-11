@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS characters (
 );
 
 -- Insert Star Wars characters
-INSERT INTO characters (name, species, homeworld) VALUES
+INSERT INTO characters (name, species, homeworld) VALUES 
 ('Luke Skywalker', 'Human', 'Tatooine'), 
 ('Leia Organa', 'Human', 'Alderaan'),
 ('Han Solo', 'Human', 'Corellia'), 
