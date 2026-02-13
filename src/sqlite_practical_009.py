@@ -7,11 +7,11 @@ import sqlite3
 import sys
 
 from pathlib import Path
-db_path = Path(__file__).parent.parent / '../runtime/db/starwars.db'
+db_path = Path(__file__).parent.parent / '2026-Y12-SE-WenhaoXu-sql-tutorial/runtime/db/starwars.db'
 if not db_path.exists():
     print(f"Database not found at: {db_path}")
 
-SQLITEDB = '../runtime/db/starwars.db'
+SQLITEDB = '2026-Y12-SE-WenhaoXu-sql-tutorial/runtime/db/starwars.db'
 
 # Connecting to database
 def query_characters():
@@ -95,6 +95,7 @@ def get_characters_as_dict():
 def search_by_species(species):
     try:
         with sqlite3.connect(SQLITEDB) as conn:
+            conn.row_factory = sqlite3.Row
             cursor = conn.cursor()
 
             cursor.execute("""
@@ -107,7 +108,8 @@ def search_by_species(species):
 
             print(f"\n=== {species} Characters ===")
             for char in results:
-                print(f"{char['name']}: {char['height']}cm")
+                print(f"{char['name']}, {char['height']}cm")
+
 
     except sqlite3.Error as e:
         print(f"Error: {e}")
@@ -131,11 +133,7 @@ def update_character_height(name, new_height):
     try:
         with sqlite3.connect(SQLITEDB) as conn:
             cursor = conn.cursor()
-            cursor.execute("""
-UPDATE characters
-                           SET height = ?
-                           WHERE name = ?
-""", new_height, name)
+            cursor.execute("UPDATE characters SET height = ? WHERE name = ?", (new_height, name))
     
             if cursor.rowcount > 0:
                 print(f"Updated {cursor.rowcount} Character(s)")

@@ -31,7 +31,7 @@ class Planet(Base):
     def __repr__(self):
         return f"<Planet(name='{self.name}')>"
 
-engine = create_engine('sqlite:///../runtime/db/starwars.db')
+engine = create_engine('sqlite:///2026-Y12-SE-WenhaoXu-sql-tutorial/runtime/db/starwars.db')
 Session = sessionmaker(bind=engine)
 session = Session()
 
@@ -46,7 +46,7 @@ for char in characters[:3]:
 
 # 2. Human characters
 print("\n2. Human Characters")
-humans = session.query(Character).filter_by(Species='Human').all()
+humans = session.query(Character).filter_by(species='Human').all()
 for human in humans:
     print(f" -{human.name}")
 
